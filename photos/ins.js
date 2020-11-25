@@ -116,8 +116,8 @@
         var data = res.list[j].arr;
         var liTmpl = "";
         for (var i = 0, len = data.link.length; i < len; i++) {
-          var minSrc = 'https://github.com/jing-jiu/MyPhotos' + data.link[i] + '.min.jpg';
-          var src = 'https://github.com/jing-jiu/MyPhotos' + data.link[i];
+          var minSrc = 'https://github.com/jing-jiu/MyPhotos/tree/master/min-photos' + data.link[i] + '.min.jpg';
+          var src = 'https://github.com/jing-jiu/MyPhotos/tree/master/photos' + data.link[i];
           var type = data.type[i];
           var target = src + (type === 'video' ? '.mp4' : '.jpg');
           src += '.jpg';
