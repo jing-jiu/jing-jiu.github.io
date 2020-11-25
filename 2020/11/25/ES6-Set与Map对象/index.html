@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    promise |  ruarua
+    ES6-Set与Map集合 |  ruarua
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -45,7 +45,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-promise"
+  id="post-ES6-Set与Map对象"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -56,22 +56,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  promise
+  ES6-Set与Map集合
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/11/23/promise/" class="article-date">
-  <time datetime="2020-11-23T13:37:45.216Z" itemprop="datePublished">2020-11-23</time>
+      <a href="/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/" class="article-date">
+  <time datetime="2020-11-25T02:20:24.046Z" itemprop="datePublished">2020-11-25</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">964</span>
+            <span class="post-count">529</span>
         </span>
     </span>
 
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -95,27 +95,39 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="Promsie"><a href="#Promsie" class="headerlink" title="Promsie"></a>Promsie</h1><p><strong>是异步编程的一种解决方案（其他的解决方式还有回调函数，监听，发布/订阅等）</strong></p>
-<h1 id="创建promise对象"><a href="#创建promise对象" class="headerlink" title="创建promise对象"></a>创建promise对象</h1><p>使用构造函数来创建一个promise对象</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        let data = &#x27;123&#x27;;</span><br><span class="line">        resolve(data);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-<p>Promsie这个构造函数会把一个函数作为自己的参数 这个函数接收resolve，reject两个函数作为参数。当异步任务顺利完成且返回结果值时，会调用 resolve 函数；而当异步任务失败且返回失败原因时，会调用reject 函数。<br>例如在下面情境下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> Promise(function(resolve, reject)&#123;</span><br><span class="line">    fs.readFile(<span class="string">&quot;C:/Users/14828/Desktop/代码/ES6/ES6_Promise/resources/为学.md&quot;</span>, (err, data)=&gt;&#123;</span><br><span class="line">        <span class="keyword">if</span>(err) reject(err);</span><br><span class="line">        resolve(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>上述代码是在node环境中  利用promise封装读取文件内容<br>如果出现错误则调用reject函数  并传入错误信息  反之调用resolve函数  并传入数据。</p>
-<h1 id="Promise方法"><a href="#Promise方法" class="headerlink" title="Promise方法"></a>Promise方法</h1><p>可以使用promise.then()，promise.catch() promise.finally()方法来进行进一步的操作。（将进一步的操作与一个变为已确定状态的 promise 关联起来。这些方法还会返回一个新生成的 promise 对象）</p>
-<h2 id="then方法"><a href="#then方法" class="headerlink" title="then方法"></a>then方法</h2><p>then() 方法返回一个 Promise。它最多需要有两个参数：Promise 的成功和失败情况的回调函数。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        let data = &#x27;123&#x27;;</span><br><span class="line">        reject(data);</span><br><span class="line">    &#125;)</span><br><span class="line">    let result = p.then(value=&gt;&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;,reason=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    console.<span class="built_in">log</span>(result);<span class="comment">//Promise</span></span><br></pre></td></tr></table></figure>
-<p>value就是调用resolve传入的参数，reason是调用reject传入的参数<br>而且promiss对象的状态由then的返回值决定<br>1.then返回结果是非promise对象  <br> promise状态为成功(fulfilled)  返回值是对象成功/失败的值</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        let data = &#x27;123&#x27;;</span><br><span class="line">        resolve(data);</span><br><span class="line">    &#125;)</span><br><span class="line">    let result = p.then(value=&gt;&#123;</span><br><span class="line">        console.<span class="built_in">log</span>(value);</span><br><span class="line">        return &#x27;value&#x27;;</span><br><span class="line">    &#125;,reason=&gt;&#123;</span><br><span class="line">        console.<span class="built_in">log</span>(reason);</span><br><span class="line">        return &#x27;reason&#x27;;</span><br><span class="line">    &#125;);</span><br><span class="line">    console.<span class="built_in">log</span>(result);</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20201122224548417.png#pic_center" alt="在这里插入图片描述"><br>2.then返回结果是promise对象<br>内部promise的返回状态决定了外部promise的返回状态</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        let data = &#x27;123&#x27;;</span><br><span class="line">        resolve(data);</span><br><span class="line">    &#125;)</span><br><span class="line">    let result = p.then(value=&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">          let data = &#x27;数据&#x27;;</span><br><span class="line">          resolve(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,reason=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    console.<span class="built_in">log</span>(result);</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20201122225135675.png#pic_center" alt="在这里插入图片描述"><br>如果是reject<br><img src="https://img-blog.csdnimg.cn/20201122225221189.png#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="catch方法"><a href="#catch方法" class="headerlink" title="catch方法"></a>catch方法</h2><p>catch() 方法返回一个Promise，并且处理拒绝的情况，它的行为与调用then方法的reason相同。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">    let data = &#x27;123&#x27;;</span><br><span class="line">    reject(data);</span><br><span class="line">&#125;)</span><br><span class="line">let result = p.then(value=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">      let data = &#x27;数据&#x27;;</span><br><span class="line">      reject(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line">p.<span class="keyword">catch</span>(reason=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> reason;</span><br><span class="line">&#125;)</span><br><span class="line">console.<span class="built_in">log</span>(p);</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20201122230646398.png#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="finally方法"><a href="#finally方法" class="headerlink" title="finally方法"></a>finally方法</h2><p>finally() 方法返回一个Promise。在promise结束时，无论结果是fulfilled或者是rejected，都会执行指定的回调函数。这为在Promise是否成功完成后都需要执行的代码提供了一种方式。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        let data = &#x27;123&#x27;;</span><br><span class="line">        resolve(data);</span><br><span class="line">    &#125;)</span><br><span class="line">    p.finally(function () &#123;</span><br><span class="line">        console.log(&#x27;finally&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    console.<span class="built_in">log</span>(p);</span><br></pre></td></tr></table></figure>
-<h1 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h1><p>以then方法为例 使用promise封装读取多个文件的函数（会返回一个promise 这个promise对象也有一个then方法。。。）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引入 fs 模块</span></span><br><span class="line"><span class="keyword">const</span> fs = require(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="comment">//使用 promise 实现链式调用</span></span><br><span class="line">let p = <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">    fs.readFile(&#x27;C:/Users/14828/Desktop/Task/TC/面向对象编程/resources/为学.md&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            reject(err);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            resolve(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line">p.then(value=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        fs.readFile(&#x27;C:/Users/14828/Desktop/Task/TC/面向对象编程/resources/观书有感.md&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">            resolve([value,data]);<span class="comment">//拿到的value是第一次的data</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).then(value=&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">            fs.readFile(&#x27;C:/Users/14828/Desktop/Task/TC/面向对象编程/resources/插秧诗.md&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">                value.push(data)<span class="comment">//此时的value是一个数组  里面放着前两个文件的data</span></span><br><span class="line">                resolve(value);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).then(value=&gt;&#123;</span><br><span class="line">        console.log(value.join(&#x27;\r\n&#x27;));</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+  <h1 id="一-Set"><a href="#一-Set" class="headerlink" title="一.Set"></a>一.Set</h1><h2 id="ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。"><a href="#ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。" class="headerlink" title="ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。"></a>ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s =<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201125084002138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NjcxMTkz,size_16,color_FFFFFF,t_70#pic_center"></p>
+<p>可以看到Set会返回给你一组不重复的值，且在Set的原型上保存了一些方法和属性。</p>
+<blockquote>
+<ol>
+<li>size属性<br>size内保存的是Set对象内部的长度</li>
+<li>add()方法<br>使用add()方法可以为Set添加成员  但如果添加的成员在Set内已经存在，则不会添加。</li>
+<li>has()方法<br>使用has()方法传入参数来检测Set内部是否含有该成员  </li>
+<li>delete()方法<br>使用delete()方法删除目标成员，Set内部如果有则删除并返回true，反之返回false</li>
+<li>clear()方法<br>使用clear()方法清空Set内部的所有成员</li>
+<li>entries()方法<br>返回一个迭代器对象iterator   因此也可以使用for…of来遍历Set对象<br><img src="https://img-blog.csdnimg.cn/20201125091343969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NjcxMTkz,size_16,color_FFFFFF,t_70#pic_center"></li>
+</ol>
+</blockquote>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><blockquote>
+<ol>
+<li>使用Set与扩展运算符…来进行数组去重。</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr = [...new <span class="built_in">Set</span>(arr)]);<span class="comment">//[1,2,3]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol start="2">
+<li>使用Set实现交集，并集，补集</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//交集</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newarr = <span class="keyword">new</span> <span class="built_in">Set</span>([...arr1,...arr2]);</span><br><span class="line"><span class="built_in">console</span>.log(newarr);<span class="comment">//[1,2,3,4,5]</span></span><br><span class="line"><span class="comment">//并集</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> new1 = arr1.filter(<span class="function"><span class="params">v</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">Set</span>(arr2).has(v))&#123;</span><br><span class="line">      <span class="keyword">return</span> v;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(new1);<span class="comment">//[3]</span></span><br><span class="line"><span class="comment">//交集的补集</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newarr = [...arr1,...arr2];</span><br><span class="line">newarr = <span class="keyword">new</span> <span class="built_in">Set</span>(newarr);</span><br><span class="line"><span class="keyword">var</span> new1 = arr1.filter(<span class="function"><span class="params">v</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">Set</span>(arr2).has(v))&#123;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> v <span class="keyword">of</span> new1) &#123;</span><br><span class="line">    <span class="keyword">if</span>(newarr.has(v))&#123;</span><br><span class="line">        newarr.delete(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(newarr);<span class="comment">//[1,2,4,5]</span></span><br></pre></td></tr></table></figure>
+<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><p><strong>Map 对象保存键值对，并且能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">m.set(<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;惠新浩&#x27;</span>);</span><br><span class="line">m.set(<span class="string">&#x27;change&#x27;</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;change&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(m);</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201125095306585.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NjcxMTkz,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ol>
+<li>set()<br>使用set方法为Map对象添加键值对 其允许传入两个参数（键名，键值）。</li>
+<li>get()<br>使用get方法读取键名所对应的键值。</li>
+<li>其余方法类似于Set</li>
+</ol>
  
       <!-- reward -->
       
@@ -186,7 +198,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/11/23/promise/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -197,15 +209,20 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/11/23/hello-world/" class="article-nav-link">
+      <a href="/2020/11/25/ES6-Class/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Hello World
+            ES6-Class
           
         </div>
       </a>
     
+    
+      <a href="/2020/11/23/hello-world/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Hello World</div>
+      </a>
     
   </nav>
 

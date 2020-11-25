@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-01T16:16:54.000Z</updated>
+  <updated>2020-11-25T03:37:13.564Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ES6-Class</title>
+    <link href="http://example.com/2020/11/25/ES6-Class/"/>
+    <id>http://example.com/2020/11/25/ES6-Class/</id>
+    <published>2020-11-25T03:36:05.681Z</published>
+    <updated>2020-11-25T03:37:13.564Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;h4</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ES6-Set与Map集合</title>
+    <link href="http://example.com/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://example.com/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/</id>
+    <published>2020-11-25T02:20:24.046Z</published>
+    <updated>2020-11-25T02:22:40.996Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;一-Set&quot;&gt;&lt;a href=&quot;#一-Set&quot; class=&quot;headerlink&quot; title=&quot;一.Set&quot;&gt;&lt;/a&gt;一.Set&lt;/h1&gt;&lt;h2 id=&quot;ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2020/11/23/hello-world/"/>
     <id>http://example.com/2020/11/23/hello-world/</id>
     <published>2020-11-23T13:38:23.430Z</published>
-    <updated>2020-09-01T16:16:54.000Z</updated>
+    <updated>2020-11-25T02:20:14.775Z</updated>
     
     
       
@@ -38,11 +80,11 @@
   </entry>
   
   <entry>
-    <title>promise</title>
-    <link href="http://example.com/2020/11/23/promise/"/>
-    <id>http://example.com/2020/11/23/promise/</id>
+    <title>ES6-Promise</title>
+    <link href="http://example.com/2020/11/23/ES6-Promise/"/>
+    <id>http://example.com/2020/11/23/ES6-Promise/</id>
     <published>2020-11-23T13:37:45.216Z</published>
-    <updated>2020-11-24T02:32:47.990Z</updated>
+    <updated>2020-11-25T02:22:36.330Z</updated>
     
     
       
