@@ -57,29 +57,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>ES6-模块化</title>
-    <url>/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
-<p>JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。</p>
-</blockquote>
-<h1 id="模块功能命令"><a href="#模块功能命令" class="headerlink" title="模块功能命令"></a>模块功能命令</h1><h3 id="一-export命令"><a href="#一-export命令" class="headerlink" title="一. export命令"></a>一.<font color="blue"> export</font>命令</h3><blockquote>
-<p>export命令用于规定模块的对外接口。一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用export关键字输出该变量。</p>
-</blockquote>
-<h6 id="声明方式"><a href="#声明方式" class="headerlink" title="声明方式"></a>声明方式</h6><ol>
-<li>在变量/函数声明前添加<font color="red"> export</font></li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">&#x27;hxh&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>在脚本末尾用大括号括起来，优先考虑使用这种写法。因为这样就可以在脚本尾部，一眼看清楚输出了哪些变量。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;hxh&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span>&#123;</span><br><span class="line">    name,n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="二-import命令"><a href="#二-import命令" class="headerlink" title="二. import命令"></a>二.<font color="blue"> import</font>命令</h3><blockquote>
-<p>import命令用于输入其他模块提供的功能。</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
     <title>ES6-Set与Map集合</title>
     <url>/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[<h1 id="一-Set"><a href="#一-Set" class="headerlink" title="一.Set"></a>一.Set</h1><h2 id="ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。"><a href="#ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。" class="headerlink" title="ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。"></a>ES6新增的Set类型是一种有序列表，其中含有一些相互独立的非重复值。</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s =<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//</span></span><br></pre></td></tr></table></figure>
@@ -115,6 +92,29 @@
 <li>get()<br>使用get方法读取键名所对应的键值。</li>
 <li>其余方法类似于Set</li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>ES6-模块化</title>
+    <url>/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。</p>
+</blockquote>
+<h1 id="模块功能命令"><a href="#模块功能命令" class="headerlink" title="模块功能命令"></a>模块功能命令</h1><h3 id="一-export命令"><a href="#一-export命令" class="headerlink" title="一. export命令"></a>一.<font color="blue"> export</font>命令</h3><blockquote>
+<p>export命令用于规定模块的对外接口。一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用export关键字输出该变量。</p>
+</blockquote>
+<h6 id="声明方式"><a href="#声明方式" class="headerlink" title="声明方式"></a>声明方式</h6><ol>
+<li>在变量/函数声明前添加<font color="red"> export</font></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">&#x27;hxh&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在脚本末尾用大括号括起来，优先考虑使用这种写法。因为这样就可以在脚本尾部，一眼看清楚输出了哪些变量。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;hxh&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span>&#123;</span><br><span class="line">    name,n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="二-import命令"><a href="#二-import命令" class="headerlink" title="二. import命令"></a>二.<font color="blue"> import</font>命令</h3><blockquote>
+<p>import命令用于输入其他模块提供的功能。</p>
+</blockquote>
 ]]></content>
   </entry>
   <entry>
