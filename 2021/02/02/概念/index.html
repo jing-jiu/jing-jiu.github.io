@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020 | ruarua</title>
+  <title>Vue基本概念 | ruarua</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ruarua">
-<meta property="og:url" content="http://example.com/archives/2020/index.html">
+  <meta name="description" content="一.软件架构模式MVC模式简介 M–&gt;model–&gt;负责储存数据–&gt;对象，数组等变量 V–&gt;view–&gt;用户所看到的界面(html,css) C–&gt;controller–&gt;业务逻辑（事件交互  如何根据视图与用户的交互改变数据–&gt;操作DOM对象进行事件的绑定）  View 传送指令到 Controller Controller 完成业务逻辑后，要求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue基本概念">
+<meta property="og:url" content="http://example.com/2021/02/02/%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="ruarua">
+<meta property="og:description" content="一.软件架构模式MVC模式简介 M–&gt;model–&gt;负责储存数据–&gt;对象，数组等变量 V–&gt;view–&gt;用户所看到的界面(html,css) C–&gt;controller–&gt;业务逻辑（事件交互  如何根据视图与用户的交互改变数据–&gt;操作DOM对象进行事件的绑定）  View 传送指令到 Controller Controller 完成业务逻辑后，要求">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020105.png">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020109.png">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020110.png">
+<meta property="article:published_time" content="2021-02-02T14:02:02.012Z">
+<meta property="article:modified_time" content="2021-02-02T14:03:14.094Z">
 <meta property="article:author" content="Jing-Jiu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020105.png">
   
     <link rel="alternative" href="/atom.xml" title="ruarua" type="application/atom+xml">
   
@@ -145,205 +153,219 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-概念" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue基本概念
+    </h1>
+  
+
+        
+        <a href="/2021/02/02/%E6%A6%82%E5%BF%B5/" class="archive-article-date">
+  	<time datetime="2021-02-02T14:02:02.012Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-02</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一-软件架构模式"><a href="#一-软件架构模式" class="headerlink" title="一.软件架构模式"></a>一.软件架构模式</h1><h2 id="MVC模式简介"><a href="#MVC模式简介" class="headerlink" title="MVC模式简介"></a>MVC模式简介</h2><p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020105.png" alt="img"></p>
+<p>M–&gt;model–&gt;负责储存数据–&gt;对象，数组等变量</p>
+<p>V–&gt;view–&gt;用户所看到的界面(html,css)</p>
+<p>C–&gt;controller–&gt;业务逻辑（事件交互  如何根据视图与用户的交互改变数据–&gt;操作DOM对象进行事件的绑定）</p>
+<ol>
+<li>View 传送指令到 Controller</li>
+<li>Controller 完成业务逻辑后，要求 Model 改变状态</li>
+<li>Model 将新的数据发送到 View，用户得到反馈</li>
+</ol>
+<p>eg: Backbone.JS</p>
+<ol>
+<li><p>用户可以向 View 发送指令（DOM 事件），再由 View 直接要求 Model 改变状态。</p>
+</li>
+<li><p>用户也可以直接向 Controller 发送指令（改变 URL 触发 hashChange 事件），再由 Controller 发送给 View。</p>
+</li>
+<li><p>Controller 非常薄，只起到路由的作用，而 View 非常厚，业务逻辑都部署在 View。所以，Backbone 索性取消了 Controller，只保留一个 Router（路由器） 。</p>
+</li>
+</ol>
+<h2 id="MVP模式简介"><a href="#MVP模式简介" class="headerlink" title="MVP模式简介"></a>MVP模式简介</h2><p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020109.png" alt="img"></p>
+<p>M–&gt;model–&gt;负责储存数据–&gt;对象，数据等变量</p>
+<p>V–&gt;view–&gt;用户所看到的界面(html,css)</p>
+<p>P–&gt;presenter–&gt; 包含着组件的事件处理，负责检索 Model 获取资料，和将获取的资料经过格式转换与 View 进行沟通。 </p>
+<ol>
+<li><p>各部分之间的通信，都是双向的。</p>
+</li>
+<li><p>View 与 Model 不发生联系，都通过 Presenter 传递。</p>
+</li>
+<li><p>View 非常薄，不部署任何业务逻辑，称为”被动视图”（Passive View），即没有任何主动性，而 Presenter非常厚，所有逻辑都部署在那里。</p>
+</li>
+</ol>
+<h2 id="MVVM模式简介"><a href="#MVVM模式简介" class="headerlink" title="MVVM模式简介"></a>MVVM模式简介</h2><p>MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。</p>
+<p> 唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。Vue和Angular都采用这种模式。 </p>
+<p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020110.png" alt="img"></p>
+<h1 id="二-VUE使用"><a href="#二-VUE使用" class="headerlink" title="二.VUE使用"></a>二.VUE使用</h1><h2 id="1-条件渲染"><a href="#1-条件渲染" class="headerlink" title="1.条件渲染"></a>1.条件渲染</h2><pre><code>1.v-if  --&gt;如果值为false则目标不会被渲染到页面上 若已经渲染到DOM上，则会从DOM中去除
+
+2.v-show --&gt;display：none  会渲染到DOM上</code></pre>
+<h2 id="2-列表渲染"><a href="#2-列表渲染" class="headerlink" title="2.列表渲染"></a>2.列表渲染</h2><pre><code>v-for 添加key属性可以使被渲染出的元素具有唯一性</code></pre>
+<h2 id="3-模板语法"><a href="#3-模板语法" class="headerlink" title="3.模板语法"></a>3.模板语法</h2><pre><code>形如 &#123;&#123; H?a:b &#125;&#125; 可在其中添加简单的三元运算符</code></pre>
+<h2 id="4-计算属性"><a href="#4-计算属性" class="headerlink" title="4.计算属性"></a>4.计算属性</h2><pre><code>在computed对象内定义计算规则并在view中调用 会将计算的结果保存  只要参数内容不修改,会调用保存的结果而不会重新计算</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;example&quot;</span>&gt;</span><br><span class="line">  &lt;p&gt;Original message: <span class="string">&quot;&#123;&#123; message &#125;&#125;&quot;</span>&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;Computed reversed message: <span class="string">&quot;&#123;&#123; reversedMessage &#125;&#125;&quot;</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#example&#x27;</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="comment">// 计算属性的 getter</span></span><br><span class="line">    reversedMessage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// `this` 指向 vm 实例</span></span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.message.split(<span class="string">&#x27;&#x27;</span>).reverse().join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="5-侦听属性"><a href="#5-侦听属性" class="headerlink" title="5.侦听属性"></a>5.侦听属性</h2><pre><code>在watch对象中定义需要监听数据的函数 数据改变就会执行该函数
+watch对象中  对象的键名是要监听的数据变量名 键值是要执行的函数</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">watch:&#123;</span><br><span class="line">	arr:<span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(val)</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2020-12-14T05:08:28.519Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-14</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/02/%E6%A6%82%E5%BF%B5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/30/%E6%89%8B%E5%86%99Promise/" class="archive-article-date">
-  	<time datetime="2020-11-30T14:49:57.023Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-30</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/30/%E6%89%8B%E5%86%99Promise/">手写Promise</a>
-    </h1>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="概念" data-title="Vue基本概念" data-url="http://example.com/2021/02/02/%E6%A6%82%E5%BF%B5/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-11-26T02:52:50.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/">ES6-模块化</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/25/ES6-Class/" class="archive-article-date">
-  	<time datetime="2020-11-25T03:36:05.681Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/25/ES6-Class/">ES6-Class</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2020-11-25T02:20:24.046Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/">ES6-Set与Map集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/23/hello-world/" class="archive-article-date">
-  	<time datetime="2020-11-23T13:38:23.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/23/ES6-Promise/" class="archive-article-date">
-  	<time datetime="2020-11-23T13:37:45.216Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/23/ES6-Promise/">ES6-Promise</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -366,8 +388,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

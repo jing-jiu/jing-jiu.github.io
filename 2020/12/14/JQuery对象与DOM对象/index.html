@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020 | ruarua</title>
+  <title>ruarua</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="一.什么是DOM对象 文档对象模型简称DOM，是W3C组织推荐的处理可扩展置标语言的标准编程接口。   DOM实际上是以面向对象方式描述的文档模型。DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。 通过DOM，可以访问所有的 HTML 元素，连同它们所包含的文本和属性。可以对其中的 内容进行修改和删除，同时也可以创建新的元素。 DOM 独立于平台和编程语言。它可被">
+<meta property="og:type" content="article">
 <meta property="og:title" content="ruarua">
-<meta property="og:url" content="http://example.com/archives/2020/index.html">
+<meta property="og:url" content="http://example.com/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="ruarua">
+<meta property="og:description" content="一.什么是DOM对象 文档对象模型简称DOM，是W3C组织推荐的处理可扩展置标语言的标准编程接口。   DOM实际上是以面向对象方式描述的文档模型。DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。 通过DOM，可以访问所有的 HTML 元素，连同它们所包含的文本和属性。可以对其中的 内容进行修改和删除，同时也可以创建新的元素。 DOM 独立于平台和编程语言。它可被">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-14T05:08:28.519Z">
+<meta property="article:modified_time" content="2020-12-14T10:03:21.949Z">
 <meta property="article:author" content="Jing-Jiu">
 <meta name="twitter:card" content="summary">
   
@@ -145,205 +149,194 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JQuery对象与DOM对象" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-什么是DOM对象"><a href="#一-什么是DOM对象" class="headerlink" title="一.什么是DOM对象"></a>一.什么是DOM对象</h2><blockquote>
+<h4>文档对象模型简称DOM，是W3C组织推荐的处理可扩展置标语言的标准编程接口。</h4>
+</blockquote>
+<ul>
+<li>DOM实际上是以面向对象方式描述的文档模型。DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。</li>
+<li>通过DOM，可以访问所有的 HTML 元素，连同它们所包含的文本和属性。可以对其中的
+</li><li>内容进行修改和删除，同时也可以创建新的元素。</li>
+<li>DOM 独立于平台和编程语言。它可被任何编程语言诸如 Java、JavaScript 和
+VBScript 使用。</li>
+<li>DOM对象，即是我们用传统的方法(javascript)获得的对象。</li>
+<li>DOM准确说是对文档对象的一种规范标准(文档对象模型),标准只定义了属性和方法行为。</li>
+
+<h2 id="二-什么是JQuery对象"><a href="#二-什么是JQuery对象" class="headerlink" title="二.什么是JQuery对象"></a>二.什么是JQuery对象</h2><blockquote>
+<h4>就是通过jQuery包装DOM对象后产生的对象。jQuery对象是jQuery独有的，其可以使用jQuery里的方法。但是不能使用DOM的方法;反过来DOM对象也不能使用</h4>
+</blockquote>
+<ul>
+<li>jQuery对象属于类数组对象，可以通过它的toArray方法转换成数组.</li>
+<li>虽然jquery对象是包装DOM对象产生的对象，但是他不能使用DOM对象的方法。如
+$("#test").innerHTML、document.getElementById("id").html().</li>
+
+<h2 id="三-相互转换"><a href="#三-相互转换" class="headerlink" title="三.相互转换"></a>三.相互转换</h2><pre><code>1.jquery转dom
+        因为他是一个类数组对象，可以使用jquery[index]获取数组中保存的dom对象
+        也可以使用jquery中的get方法。当get方法不传参时，会将jquery转换成数组。
+2.dom转jquery
+        将dom对象放入jquery的入口函数内部，就会将该dom元素转换为一个jquery对象    $()。</code></pre>
+</ul></ul>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2020-12-14T05:08:28.519Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-14</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/30/%E6%89%8B%E5%86%99Promise/" class="archive-article-date">
-  	<time datetime="2020-11-30T14:49:57.023Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/02/02/%E6%A6%82%E5%BF%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Vue基本概念
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/30/%E6%89%8B%E5%86%99Promise/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手写Promise</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/30/%E6%89%8B%E5%86%99Promise/">手写Promise</a>
-    </h1>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="JQuery对象与DOM对象" data-title="" data-url="http://example.com/2020/12/14/JQuery%E5%AF%B9%E8%B1%A1%E4%B8%8EDOM%E5%AF%B9%E8%B1%A1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-11-26T02:52:50.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/26/ES6-%E6%A8%A1%E5%9D%97%E5%8C%96/">ES6-模块化</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/25/ES6-Class/" class="archive-article-date">
-  	<time datetime="2020-11-25T03:36:05.681Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/25/ES6-Class/">ES6-Class</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
-  	<time datetime="2020-11-25T02:20:24.046Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/25/ES6-Set%E4%B8%8EMap%E5%AF%B9%E8%B1%A1/">ES6-Set与Map集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/23/hello-world/" class="archive-article-date">
-  	<time datetime="2020-11-23T13:38:23.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/23/ES6-Promise/" class="archive-article-date">
-  	<time datetime="2020-11-23T13:37:45.216Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/23/ES6-Promise/">ES6-Promise</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -366,8 +359,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
