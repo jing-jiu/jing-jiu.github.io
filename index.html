@@ -150,6 +150,21 @@
     <article id="post-概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/02/%E6%A6%82%E5%BF%B5/">JQuery与DOM对象</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/02/%E6%A6%82%E5%BF%B5/" class="archive-article-date">
+  	<time datetime="2021-02-02T14:02:02.012Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-02</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="一-软件架构模式"><a href="#一-软件架构模式" class="headerlink" title="一.软件架构模式"></a>一.软件架构模式</h1><h2 id="MVC模式简介"><a href="#MVC模式简介" class="headerlink" title="MVC模式简介"></a>MVC模式简介</h2><p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015020105.png" alt="img"></p>
@@ -198,52 +213,55 @@ watch对象中  对象的键名是要监听的数据变量名 键值是要执行
 
 <h2 id="6-表单输入绑定"><a href="#6-表单输入绑定" class="headerlink" title="6.表单输入绑定"></a>6.表单输入绑定</h2><pre><code>使用v-model进行对数据进行双向数据绑定 修饰符……</code></pre>
 <h2 id="7-生命周期"><a href="#7-生命周期" class="headerlink" title="7.生命周期"></a>7.生命周期</h2><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="Vue 实例生命周期"></p>
-<ul>
-<li>什么是vue生命周期？<br>Vue 实例从创建到销毁的过程，就是生命周期。也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。在整个Vue实例的生命周期中会执行这些钩子函数</li>
-<li>beforeCreate   实例初始化之后，this指向创建的实例，不能访问到data、computed、watch、methods上的方法和数据</li>
-<li>beforeCreate与created之间 在beforeCreate与created之间进行初始化事件,数据的观测 绑定data数据，methods方法等</li>
-<li>created  实例创建完成，可访问data、computed、watch、methods上的方法和数据，未挂载到DOM，不能访问到$el属性。$ref属性内容为空数组 </li>
-<li>created与beforeMount之间 首先会判断对象是否有el选项。如果有的话就继续向下编译，如果没有el选项，则停止编译，也就意味着停止了生命周期，直到在该vue实例上调用vm.$mount(el)—–如果我们在后面继续调用vm.$mount(el),(挂载dom节点)可以发现代码继续向下执行了<br>接下–&gt;template参数选项的有无对生命周期的影响。<br>（1）.如果vue实例对象中有template参数选项，则将其作为模板编译成render函数。<br>（2）.如果没有template选项，则将外部HTML作为模板编译。<br>（3）.可以看到template中的模板优先级要高于outer HTML的优先级<br>修改代码如下, 在HTML结构中增加了一串html，在vue对象中增加了template选项： 可以发现template中的内容会覆盖outer HTML中的内容<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;!--html中修改的--&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123;message + <span class="string">&#x27;这是在outer HTML中的&#x27;</span>&#125;&#125;&lt;/h1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    template: <span class="string">&quot;&lt;h1&gt;&#123;&#123;message +&#x27;这是在template中的&#x27;&#125;&#125;&lt;/h1&gt;&quot;</span>, <span class="comment">//在vue配置项中修改的</span></span><br><span class="line">    data: &#123;</span><br><span class="line">      message: <span class="string">&#x27;Vue的生命周期&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="什么是vue生命周期？"><a href="#什么是vue生命周期？" class="headerlink" title="什么是vue生命周期？"></a>什么是vue生命周期？</h3><ul>
+<li>Vue 实例从创建到销毁的过程，就是生命周期。也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。在整个Vue实例的生命周期中会执行这些钩子函数<h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3></li>
+<li>实例初始化之后，this指向创建的实例，不能访问到data、computed、watch、methods上的方法和数据<h3 id="beforeCreate与created之间"><a href="#beforeCreate与created之间" class="headerlink" title="beforeCreate与created之间"></a>beforeCreate与created之间</h3></li>
+<li>在beforeCreate与created之间进行初始化事件,数据的观测 绑定data数据，methods方法等<h3 id="created"><a href="#created" class="headerlink" title="created"></a>created</h3></li>
+<li>实例创建完成，可访问data、computed、watch、methods上的方法和数据，未挂载到DOM，不能访问到$el属性。$ref属性内容为空数组 <h3 id="created与beforeMount之间"><a href="#created与beforeMount之间" class="headerlink" title="created与beforeMount之间"></a>created与beforeMount之间</h3></li>
+<li>首先会判断对象是否有el选项。如果有的话就继续向下编译，如果没有el选项，则停止编译，也就意味着停止了生命周期，直到在该vue实例上调用vm.$mount(el)—–如果我们在后面继续调用vm.$mount(el),(挂载dom节点)可以发现代码继续向下执行了<br>接下–&gt;template参数选项的有无对生命周期的影响。<br>（1）.如果vue实例对象中有template参数选项，则将其作为模板编译成render函数。<br>（2）.如果没有template选项，则将外部HTML作为模板编译。<br>（3）.可以看到template中的模板优先级要高于outer HTML的优先级<br>修改代码如下, 在HTML结构中增加了一串html，在vue对象中增加了template选项： 可以发现template中的内容会覆盖outer HTML中的内容<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;!--html中修改的--&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123;message + <span class="string">&#x27;这是在outer HTML中的&#x27;</span>&#125;&#125;&lt;/h1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    template: <span class="string">&quot;&lt;h1&gt;&#123;&#123;message +&#x27;这是在template中的&#x27;&#125;&#125;&lt;/h1&gt;&quot;</span>, <span class="comment">//在vue配置项中修改的</span></span><br><span class="line">    data: &#123;</span><br><span class="line">      message: <span class="string">&#x27;Vue的生命周期&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 这下就可以想想什么el的判断要在template之前了~是因为vue需要通过el找到对应的outer template。<br>在vue对象中还有一个render函数(渲染函数)，它是以createElement作为参数，然后做渲染操作</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> createElement(<span class="string">&#x27;h1&#x27;</span>, <span class="string">&#x27;this is 	createElement&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>可以看到页面中渲染的为this is createElement<br>因此优先级为render函数选项 &gt; template选项 &gt; outer HTML</p>
-<ul>
-<li><p>beforeMount  在挂载开始之前被调用，beforeMount之前，会找到对应的template，并编译成render函数  给Vue实例添加$el成员   此时的this.$el就是一个    DOM对象  但可以发现，此时 h1中还是通进行占位 因为此时还未挂载到页面上   此时仍是虚拟DOM的形式存在 </p>
+<h3 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h3><ul>
+<li><p>在挂载开始之前被调用，beforeMount之前，会找到对应的template，并编译成render函数  给Vue实例添加$el成员   此时的this.$el就是一个    DOM对象  但可以发现，此时 h1中还是通进行占位 因为此时还未挂载到页面上   此时仍是虚拟DOM的形式存在 </p>
 <p><img src="/2021/02/02/%E6%A6%82%E5%BF%B5/Users\14828\AppData\Roaming\Typora\typora-user-images\1612433875946.png"></p>
 </li>
-<li><p>mounted     实例挂载到DOM上，此时可以通过DOM API获取到DOM节点，$ref属性可以访问  h1处不再是用占位。</p>
+</ul>
+<h3 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h3><ul>
+<li><p>实例挂载到DOM上，此时可以通过DOM API获取到DOM节点，$ref属性可以访问  h1处不再是用占位。</p>
 <p><img src="/2021/02/02/%E6%A6%82%E5%BF%B5/Users\14828\AppData\Roaming\Typora\typora-user-images\1612434167966.png"></p>
 </li>
-<li><p>beforeUpdate  响应式数据更新时调用，发生在虚拟DOM打补丁之前 </p>
-</li>
-<li><p>updated  虚拟 DOM 重新渲染和打补丁之后调用，组件DOM已经更新，可执行依赖于DOM的操作</p>
-</li>
-<li><p>beforeDestroy  实例销毁之前调用。这一步，实例仍然完全可用，this仍能获取到实例</p>
-</li>
-<li><p>destroyed  实例销毁后调用，调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁 </p>
-<h2 id="8-组件基础"><a href="#8-组件基础" class="headerlink" title="8.组件基础"></a>8.组件基础</h2></li>
-<li><p>定义一个组件</p>
-<p>调用Vue对象的component方法传入自定义组件名称，以及模板等,与根组件唯一区别是无el挂载点。之后就可以在html中通过<hello></hello>形式调用组件</p>
+</ul>
+<h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><ul>
+<li>响应式数据更新时调用，发生在虚拟DOM打补丁之前 </li>
+</ul>
+<h3 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h3><ul>
+<li>虚拟 DOM 重新渲染和打补丁之后调用，组件DOM已经更新，可执行依赖于DOM的操作</li>
+</ul>
+<h3 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h3><ul>
+<li>实例销毁之前调用。这一步，实例仍然完全可用，this仍能获取到实例</li>
+</ul>
+<h3 id="destroyed"><a href="#destroyed" class="headerlink" title="destroyed"></a>destroyed</h3><ul>
+<li><p>实例销毁后调用，调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁 </p>
+<h2 id="8-组件基础"><a href="#8-组件基础" class="headerlink" title="8.组件基础"></a>8.组件基础</h2><h3 id="定义一个组件"><a href="#定义一个组件" class="headerlink" title="定义一个组件"></a>定义一个组件</h3><p>调用Vue对象的component方法传入自定义组件名称，以及模板等,与根组件唯一区别是无el挂载点。之后就可以在html中通过<hello></hello>形式调用组件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">components:&#123;</span><br><span class="line">    <span class="string">&#x27;hello&#x27;</span>:Vue.component(<span class="string">&#x27;hello&#x27;</span>,&#123;</span><br><span class="line">        template:<span class="string">&#x27;&lt;h1 @click=&quot;change&quot;&gt;&#123;&#123;hxh&#125;&#125;&lt;/h1&gt;&#x27;</span>,</span><br><span class="line">        <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                hxh:<span class="string">&#x27;hello 浩哥&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods:&#123;</span><br><span class="line">            <span class="function"><span class="title">change</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="built_in">this</span>.hxh = <span class="string">&#x27;123&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
-<li><p>组件间通信(props)<br>1.父子组件<br>  1&gt;父传子<br>  在子组件中添加props数组  存放与父组件通信的属性名称 父组件可以把内容通过在props中添加的属性传入子组件中</p>
-<p><strong>如果传给子组件的是一个方法，子组件也可以调用该方法。其中父组件方法的this指向父组件，而不是调用的组件。因此子组件调用该方法也可以操作父组件</strong></p>
+</ul>
+<h3 id="组件间通信-props"><a href="#组件间通信-props" class="headerlink" title="组件间通信(props)"></a>组件间通信(props)</h3><h4 id="1-父子组件"><a href="#1-父子组件" class="headerlink" title="1.父子组件"></a>1.父子组件</h4><pre><code>1&gt;父传子
+在子组件中添加props数组  存放与父组件通信的属性名称 父组件可以把内容通过在props中添加的属性传入子组件中</code></pre>
+<p>  <strong>如果传给子组件的是一个方法，子组件也可以调用该方法。其中父组件方法的this指向父组件，而不是调用的组件。因此子组件调用该方法也可以操作父组件</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">hello</span> <span class="attr">:title</span>=<span class="string">&#x27;name&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line">也可以=&gt;</span><br><span class="line"> <span class="tag">&lt;<span class="name">hello</span> <span class="attr">title</span>=<span class="string">&#x27;ruarua&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    name:ruarua</span><br><span class="line">&#125;</span><br><span class="line">components:&#123;</span><br><span class="line"> <span class="string">&#x27;hello&#x27;</span>:Vue.component(<span class="string">&#x27;hello&#x27;</span>,&#123;</span><br><span class="line">    props:[<span class="string">&#x27;title&#x27;</span>],</span><br><span class="line">    template:<span class="string">&#x27;&lt;h1 @click=&quot;change&quot;&gt;&#123;&#123;hxh+title&#125;&#125;&lt;/h1&gt;&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> &#123;</span><br><span class="line">          hxh:<span class="string">&#x27;hello 浩哥&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    name:ruarua</span><br><span class="line">&#125;</span><br><span class="line">components:&#123;</span><br><span class="line"> <span class="string">&#x27;hello&#x27;</span>:Vue.component(<span class="string">&#x27;hello&#x27;</span>,&#123;</span><br><span class="line">    props:[<span class="string">&#x27;title&#x27;</span>],</span><br><span class="line">    template:<span class="string">&#x27;&lt;h1 @click=&quot;change&quot;&gt;&#123;&#123;hxh+title&#125;&#125;&lt;/h1&gt;&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> &#123;</span><br><span class="line">          hxh:<span class="string">&#x27;hello 浩哥&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>还可以使用更简单的方法来操作</strong>  如果在子组件打印this就会发现，this身上绑定了一个$parent属性，你会发现this.$parent === app.因此可以这样**@click=’$parent.show(item)’**<br><strong>但是为了降低耦合不建议这样操作</strong><br>    2&gt;子传父</p>
 <p>  使用$emit方法将子组件的值抛出(<strong>this.$emit(‘foodshow’,data)</strong>),这个方法接收两个参数–&gt;(‘自定义参数’,‘要抛出的变量’)   在父组件使用组件的位置用自定义事件接收  作为函数的一个参数传入方法中。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">food</span> <span class="attr">name</span>=<span class="string">&#x27;water&#x27;</span> @<span class="attr">foodshow</span>=<span class="string">&#x27;show&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">food</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;food&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">components:&#123;</span><br><span class="line"> <span class="string">&#x27;food&#x27;</span>:Vue.component(<span class="string">&#x27;food&#x27;</span>,&#123;</span><br><span class="line">    props:[<span class="string">&#x27;name&#x27;</span>],</span><br><span class="line">    template:<span class="string">`&lt;div&gt;&lt;h1 v-for=&#x27;item in foods&#x27; @click=&#x27;show(item)&#x27;&gt;&#123;&#123;name&#125;&#125;:&#123;&#123;item&#125;&#125;&lt;/h1&gt;&lt;/div&gt;`</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> &#123;</span><br><span class="line">         foods:[<span class="string">&#x27;apple&#x27;</span>,<span class="string">&#x27;banana&#x27;</span>,<span class="string">&#x27;peach&#x27;</span>]</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      show:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;foodshow&#x27;</span>,data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样的，在父组件中有一个$children <strong>但是为了降低耦合不建议这样操作</strong><br>       2.兄弟组件</p>
-<ul>
-<li>组件上使用v-model</li>
-<li>插槽</li>
-</ul>
-
+<p>同样的，在父组件中有一个$children <strong>但是为了降低耦合不建议这样操作</strong></p>
+<h4 id="2-兄弟组件"><a href="#2-兄弟组件" class="headerlink" title="2.兄弟组件"></a>2.兄弟组件</h4><h3 id="组件上使用v-model"><a href="#组件上使用v-model" class="headerlink" title="组件上使用v-model"></a>组件上使用v-model</h3><h3 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h3>
       
 
       
