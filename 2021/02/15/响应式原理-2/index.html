@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/2 | ruarua</title>
+  <title>深入原理 | ruarua</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ruarua">
-<meta property="og:url" content="http://example.com/archives/2021/02/index.html">
+  <meta name="description" content="原理(进阶——vue2)一.defineReactive函数——响应式操作1.Object.defineProperty()函数要进行响应式操作就需要使用Object对象上的一个方法defineProperty() 123456789101112131415161718192021&#x2F;&#x2F;Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入原理">
+<meta property="og:url" content="http://example.com/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/index.html">
 <meta property="og:site_name" content="ruarua">
+<meta property="og:description" content="原理(进阶——vue2)一.defineReactive函数——响应式操作1.Object.defineProperty()函数要进行响应式操作就需要使用Object对象上的一个方法defineProperty() 123456789101112131415161718192021&#x2F;&#x2F;Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-15T13:11:01.449Z">
+<meta property="article:modified_time" content="2021-02-15T13:10:16.756Z">
 <meta property="article:author" content="Jing-Jiu">
 <meta name="twitter:card" content="summary">
   
@@ -145,103 +149,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-响应式原理-2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      深入原理
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/" class="archive-article-date">
+
+        
+        <a href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/" class="archive-article-date">
   	<time datetime="2021-02-15T13:11:01.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/">深入原理</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="原理-进阶——vue2"><a href="#原理-进阶——vue2" class="headerlink" title="原理(进阶——vue2)"></a>原理(进阶——vue2)</h1><h2 id="一-defineReactive函数——响应式操作"><a href="#一-defineReactive函数——响应式操作" class="headerlink" title="一.defineReactive函数——响应式操作"></a>一.defineReactive函数——响应式操作</h2><h3 id="1-Object-defineProperty-函数"><a href="#1-Object-defineProperty-函数" class="headerlink" title="1.Object.defineProperty()函数"></a>1.Object.defineProperty()函数</h3><pre><code>要进行响应式操作就需要使用Object对象上的一个方法defineProperty()</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。</span></span><br><span class="line"><span class="comment">//其接收三个参数</span></span><br><span class="line"><span class="comment">//obj</span></span><br><span class="line"><span class="comment">//要定义属性的对象。</span></span><br><span class="line"><span class="comment">//prop</span></span><br><span class="line"><span class="comment">//要定义或修改的属性的名称或 Symbol 。</span></span><br><span class="line"><span class="comment">//descriptor</span></span><br><span class="line"><span class="comment">//要定义或修改的属性描述符。</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj,key,&#123;</span><br><span class="line">    configurable:<span class="literal">true</span>,</span><br><span class="line">    enumerable:<span class="literal">true</span>,</span><br><span class="line">    writable:<span class="literal">true</span>,</span><br><span class="line">    <span class="comment">//value</span></span><br><span class="line">    <span class="function"><span class="title">get</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">set</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//注意:set,get函数不能与value,writable同时使用</span></span><br></pre></td></tr></table></figure>
+<pre><code>而我们的defineReactive函数则是对defineProperty进行了简单的封装</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">obj,key,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//此处判断传入参数的个数   如果传入两个参数  进行value = obj[key]操作以便后面对一个对象身上含有多层属性进行递归</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>.length == <span class="number">2</span>)&#123;</span><br><span class="line">        value = obj[key]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj,key,&#123;</span><br><span class="line">        configurable:<span class="literal">true</span>,</span><br><span class="line">        enumerable:<span class="literal">true</span>,</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;访问&#x27;</span>+key+<span class="string">&#x27;属性&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;修改&#x27;</span>+key+<span class="string">&#x27;属性&#x27;</span>);</span><br><span class="line">            value = val</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二-Observer类——观察者"><a href="#二-Observer类——观察者" class="headerlink" title="二.Observer类——观察者"></a>二.Observer类——观察者</h2><h3 id="1-observe函数"><a href="#1-observe函数" class="headerlink" title="1.observe函数"></a>1.observe函数</h3><pre><code>我们需要一个函数来判断一个数据是否需要为其进行响应式操作</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//判断传入的value是否为一个对象</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> value !== <span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> ob</span><br><span class="line">        <span class="comment">//判断对象身上是否有一个__ob__属性  这个属性里面存放该对象的Observer类用于观察对象身上的属性</span></span><br><span class="line">        <span class="keyword">if</span>(value.__ob__)&#123;</span><br><span class="line">            ob = value.__ob__</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ob = <span class="keyword">new</span> Observer(value)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>我们需要在defineReactive函数内部去调用它 1.给子对象添加观察 2.给新的值添加观察</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">obj,key,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//给子对象添加观察</span></span><br><span class="line">    <span class="keyword">let</span> childOb = observe(value)</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj,key,&#123;</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">            <span class="comment">//给新的值添加观察</span></span><br><span class="line">            childOb = observe(val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-def函数"><a href="#2-def函数" class="headerlink" title="2.def函数"></a>2.def函数</h3><pre><code>我们需要在Oberver中对传入的对象/数组添加一个属性,属性中存放一个Oberver实例用于观察这个对象的数据变化</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">def</span>(<span class="params">obj,key,value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj,key,&#123;</span><br><span class="line">        value</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-Observer类"><a href="#3-Observer类" class="headerlink" title="3.Observer类"></a>3.Observer类</h3><pre><code>在Observer类中我们需要对属性进行观察 并且我们需要在observe中实例化他</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        def(value,<span class="string">&#x27;__ob__&#x27;</span>,<span class="built_in">this</span>)</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(value))&#123;</span><br><span class="line">            <span class="built_in">this</span>.arrWalk(value)</span><br><span class="line">            <span class="built_in">Object</span>.setPrototypeOf(value,arrMethods);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">this</span>.walk(value)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">walk</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">            defineReactive(obj,key)</span><br><span class="line">       &#125;     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">arrWalk</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-数组的观察——重写方法"><a href="#4-数组的观察——重写方法" class="headerlink" title="4.数组的观察——重写方法"></a>4.数组的观察——重写方法</h3><pre><code>由于数组与对象不同   defineReactive无法监测他的增删添改 因此我们需要对数组原型上的七种方法进行重写,方便我们监听它</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> methodsNeedChange = [<span class="comment">//要重写的七种方法</span></span><br><span class="line">    <span class="string">&#x27;push&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;shift&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;unshift&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;splice&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sort&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;reverse&#x27;</span></span><br><span class="line">]</span><br><span class="line"><span class="comment">//将Array原型绑定到arrMethods上 即arrMethods.prototype === Array.prototype</span></span><br><span class="line"><span class="keyword">let</span> arrMethods = <span class="built_in">Object</span>.create(<span class="built_in">Array</span>.prototype)</span><br><span class="line">methodsNeedChange.forEach(</span><br><span class="line">    methods =&gt; &#123;</span><br><span class="line">        <span class="comment">//保存原来的七个方法</span></span><br><span class="line">        <span class="keyword">let</span> oldMethods = <span class="built_in">Array</span>.prototype[methods]</span><br><span class="line">        <span class="comment">//重写方法 用def监测</span></span><br><span class="line">        def(arrMethods,methods,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//当我们调用Array原型上的方法时,此时调用未重写的方法对数组进行正确的操作</span></span><br><span class="line">            <span class="keyword">let</span> result = oldMethods.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">            <span class="keyword">let</span> newArr = []<span class="comment">//存放改变后的数组</span></span><br><span class="line">            <span class="keyword">let</span> ob = <span class="built_in">this</span>.__ob__</span><br><span class="line">            <span class="keyword">let</span> arr = [...arguments]<span class="comment">//防止是类数组无法调用slice方法</span></span><br><span class="line">            <span class="keyword">switch</span> (methods) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;push&#x27;</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;unshift&#x27;</span>:   </span><br><span class="line">                    newArr = <span class="built_in">arguments</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;slice&#x27;</span>: </span><br><span class="line">                    newArr = arr.slice(<span class="number">2</span>)  </span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(newArr)&#123;</span><br><span class="line">                <span class="comment">//在这里响应</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&#x27;使用了&#x27;</span>+ oldMethods.name +<span class="string">&#x27;方法&#x27;</span>);</span><br><span class="line">                <span class="comment">//如果数据变化  把新的数据更新</span></span><br><span class="line">                ob.arrWalk(newArr)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code>而此时arrMethods上就存放了可以被监听的七种方法  我们在需要这七种方法时,也就是observe时将传数组的原型改成arrMethods,这样我们的数组调用数组的方法也就能够被监听到   如下:</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">arrWalk</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>,l = arr.length;i&lt;l;i++)&#123;</span><br><span class="line">      <span class="comment">//逐项进行observe</span></span><br><span class="line">      observe(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三-Dep类——依赖收集"><a href="#三-Dep类——依赖收集" class="headerlink" title="三.Dep类——依赖收集"></a>三.Dep类——依赖收集</h2><pre><code>在vue中,可能我们在vue实例内部定义的数据不一定会同时使用数据,我们没必要给未使用的数据进行响应式处理.因此我们需要判断那些数据是正在被使用的,然后打上标记,这个标记要求是在全局唯一的位置进行存放.一般来说我们选择Dep类,标记为Dep.target当然你也可以选择window对象来存放.</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.subs = [] <span class="comment">//定义一个数组用来存放依赖——Watcher类的实例</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">notify</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> sub = <span class="built_in">this</span>.subs.slice() <span class="comment">//浅拷贝一份依赖数组</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; sub.length; i++)&#123;</span><br><span class="line">            <span class="comment">//遍历数组 通知所有观察者数据更新</span></span><br><span class="line">            sub[i].update()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">depend</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Dep.target)&#123;</span><br><span class="line">            <span class="built_in">this</span>.addSub(Dep.target)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">addSub</span>(<span class="params">sub</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.subs.push(sub)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>我们需要在defineReactive函数,Observer类中实例化Dep类</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">obj,key,val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj,key,&#123;</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">//在getter收集依赖</span></span><br><span class="line">            <span class="keyword">if</span>(Dep.target)&#123;</span><br><span class="line">                dep.depend()</span><br><span class="line">                <span class="keyword">if</span>(childOb)&#123;</span><br><span class="line">                    childOb.dep.depend()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> val</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">            <span class="comment">//在setter发布更新</span></span><br><span class="line">            dep.notify()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.dep = <span class="keyword">new</span> Dep()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四-Watcher类——订阅者"><a href="#四-Watcher类——订阅者" class="headerlink" title="四.Watcher类——订阅者"></a>四.Watcher类——订阅者</h2><pre><code>Watcher是一个观察者对象。依赖收集以后Watcher对象会被保存在Dep的subs中，数据变动的时候Dep会通知Watcher实例，然后由Watcher实例回调cb进行视图的更新。</code></pre>
+<h3 id="1-Watcher类"><a href="#1-Watcher类" class="headerlink" title="1.Watcher类"></a>1.Watcher类</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Watcher</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">target,expression,callback</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.target = target</span><br><span class="line">        <span class="built_in">this</span>.getter = parsePath(expression)</span><br><span class="line">        <span class="built_in">this</span>.callback = callback</span><br><span class="line">        <span class="built_in">this</span>.value = <span class="built_in">this</span>.get()<span class="comment">//获取访问的属性的值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">get</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//将这个Watcher实例存放到Dep.target上</span></span><br><span class="line">        Dep.target = <span class="built_in">this</span></span><br><span class="line">        <span class="keyword">let</span> obj = <span class="built_in">this</span>.target</span><br><span class="line">        <span class="keyword">var</span> value</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//通过getter方法获取到最新的value值</span></span><br><span class="line">            value = <span class="built_in">this</span>.getter(obj)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;报错了~~~&#x27;</span>) </span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            Dep.target = <span class="literal">null</span> <span class="comment">//让这个实例从Dep.target上推下，让其他的实例上位</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">run</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.getAndInvoke(<span class="built_in">this</span>.callback)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">update</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.run()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">getAndInvoke</span>(<span class="params">cb</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> value = <span class="built_in">this</span>.get()</span><br><span class="line">        <span class="keyword">if</span>(value !== <span class="built_in">this</span>.value || <span class="keyword">typeof</span> value == <span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">let</span> oldVlaue = <span class="built_in">this</span>.value</span><br><span class="line">            cb.call(<span class="built_in">this</span>.target,value,oldVlaue)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-parsePath函数——根据提供的路径寻找对象身上的属性"><a href="#2-parsePath函数——根据提供的路径寻找对象身上的属性" class="headerlink" title="2.parsePath函数——根据提供的路径寻找对象身上的属性"></a>2.parsePath函数——根据提供的路径寻找对象身上的属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parsePath</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = str.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">obj</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">            obj = obj[arr[i]]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-1/" class="archive-article-date">
-  	<time datetime="2021-02-15T13:11:01.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大致原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-1/">大致原理</a>
-    </h1>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="响应式原理-2" data-title="深入原理" data-url="http://example.com/2021/02/15/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86-2/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/02/%E6%A6%82%E5%BF%B5/" class="archive-article-date">
-  	<time datetime="2021-02-02T14:02:02.012Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/02/%E6%A6%82%E5%BF%B5/">Vue概念</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -264,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
